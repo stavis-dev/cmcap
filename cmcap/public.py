@@ -1,58 +1,36 @@
 #!/usr/bin/env python
-import os
+# import os
 import json
-import tempfile
-from requests_cache import CachedSession  # pip install requests-cache
-# https://github.com/reclosedev/requests-cache
+from urllib.request import urlopen
+from urllib import parse
 
 
 class PubMarket:
-    _session = None
     __DEFAULT_BASE_URL = 'https://api.coinmarketcap.com/data-api/v3'
-    __DEFAULT_TIMEOUT = 30
-    __TEMPDIR_CACHE = True
 
     def __init__(self,
-                 base_url=__DEFAULT_BASE_URL,
-                 request_timeout=__DEFAULT_TIMEOUT,
-                 tempdir_cache=__TEMPDIR_CACHE):
+                 base_url=__DEFAULT_BASE_URL, verbose=False):
         self.base_url = base_url
-        self.request_timeout = request_timeout
-        self.cache_filename = 'coinmarketcap_cache'
-        if tempdir_cache:
-            self.cache_name = os.path.join(tempfile.gettempdir(),
-                                           self.cache_filename)
+        self.verbose = verbose
+
+    def __request(self, endpoint: str, params: dict = None):
+        if params:
+            params = parse.urlencode(params)
+            req = self.base_url + endpoint + '?' + params
         else:
-            self.cache_name = self.cache_filename
+            req = self.base_url + endpoint
 
-    @property
-    def session(self) -> CachedSession:
-        if not self._session:
-            self._session = CachedSession(cache_name=self.cache_name,
-                                          backend='sqlite',
-                                          expire_after=120)
-            self._session.headers.update({'Accept': 'application/json'})
-            self._session.headers.update({'Accept-Encoding': 'deflate, gzip'})
-            self._session.headers.update({'User-agent': 'coinmarketcap - python \
-                                          wrapper apiv3 coinmarketcap.'})
-        return self._session
-
-    def __request(self, endpoint: str, params: dict):
-        # print('url is', self.base_url + endpoint, params)
-        # exit()
-        rsp_object = self.session.get(self.base_url + endpoint,
-                                      params=params,
-                                      timeout=self.request_timeout)
         try:
-            response = json.loads(rsp_object.text)
-            if isinstance(response, list) and rsp_object.status_code == 200:
-                response = [dict(item, **{u'cached': rsp_object.from_cache})
-                            for item in response]
-            if isinstance(response, dict) and rsp_object.status_code == 200:
-                response[u'cached'] = rsp_object.from_cache
+            with urlopen(req, timeout=10) as rsp:
+                response = json.loads(rsp.read())
         except Exception as err:
             return err
-        return response
+        if self.verbose:
+            print('-' * 10 + '\n', response['status'], '\n' + '-' * 10)
+        if response['status']['error_code'] == '0':
+            return response['data']
+        else:
+            return response['status']
 
     def listing(self, **kwargs):
         """
@@ -62,11 +40,14 @@ class PubMarket:
         """
         params: dict = {}
         params.update(kwargs)
-        response = self.__request('/cryptocurrency/listing', params)
+        response = self.__request('/cryptocurrency/listing', params=None)
         return response
 
-    def market_pairs(self, **kwargs):
+    def coin_markets(self, **kwargs):
         """
+        Возвращает список бирж торгующие интересующей монетой id
+        Market Pairs Latest
+        https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyMarketpairsLatest
         Requared "slug" or "id"
         Example:
         slug=zclassic
@@ -79,9 +60,16 @@ class PubMarket:
                                   params)
         return response
 
-    def exchanges(self, slug: str, **kwargs):
+    def markets_info(self, slug: str, **kwargs):
         """
+        Возвращает список валютных пар на интересующей бирже id
+        https://coinmarketcap.com/api/documentation/v1/#operation/getV1ExchangeMarketpairsLatest
+        Cryptocurrency Converter Calculator
         https://coinmarketcap.com/ru/rankings/exchanges/
+        category=spot - Спот (по умолчанию)
+        category=perpetual - Бессрочные
+        category=futures - Фьючерсы
+        slug=kraken&category=spot&start=1&limit=100
         Requared "slug" or "id"
         Example:
         slug=okex
@@ -97,3 +85,32 @@ class PubMarket:
         response = self.__request('/exchange/market-pairs/latest',
                                   params)
         return response
+
+    def convert(self, amount, id: int, convert_id: int):
+        """
+        Cryptocurrency Converter Calculator
+        https://coinmarketcap.com/converter/
+        Requared: "slug" or "id"
+        amount=1,
+        convert_id=2781,
+        id=1
+        """
+        params: dict = {"amount": amount,
+                        "id": id,
+                        "convert_id": convert_id}
+        resp = self.__request('/tools/price-conversion',
+                              params)
+        return resp
+
+    def coin_info(self, id: int):
+        """
+        Cryptocurrencies Coins Info
+        https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyInfo
+        Requared: "id"
+        Example:
+        id=1
+        """
+        params: dict = {"id": id}
+        resp = self.__request('/cryptocurrency/detail',
+                              params)
+        return resp
