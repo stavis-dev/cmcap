@@ -43,10 +43,13 @@ class PubMarket:
         response = self.__request('/cryptocurrency/listing', params=None)
         return response
 
-    def markets_by_coin_id(self, **kwargs):
+    @classmethod
+    def markets_by_coin_id(cls, id: int = None,
+                           slug: str = None, **kwargs):
         """
         Возвращает список бирж торгующие интересующей монетой id
         Market Pairs Latest
+        https://api.coinmarketcap.com/data-api/v3/cryptocurrency/market-pairs/latest?id=1
         https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyMarketpairsLatest
         Requared "slug" or "id"
         Example:
@@ -54,9 +57,21 @@ class PubMarket:
         id=1
         &start=1&limit=6
         """
-        params: dict = {}
+        if id is None and slug is None:
+            raise
+        elif id:
+            params: dict = {
+                'id': id,
+            }
+        elif slug:
+            params: dict = {
+                'slug': slug,
+            }
+        elif id and slug:
+            raise
+
         params.update(kwargs)
-        response = self.__request('/cryptocurrency/market-pairs/latest',
+        response = cls.__request('/cryptocurrency/market-pairs/latest',
                                   params)
         return response
 
