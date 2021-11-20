@@ -6,27 +6,27 @@ from urllib import parse
 
 
 class PubMarket:
-    __DEFAULT_BASE_URL = 'https://api.coinmarketcap.com/data-api/v3'
+    """Public api for web v3 """
+    __BASE_API_URL = 'https://api.coinmarketcap.com/data-api/v3'
 
     def __init__(self,
-                 base_url=__DEFAULT_BASE_URL, verbose=False):
+                 base_url=__BASE_API_URL, verbose=False):
         self.base_url = base_url
         self.verbose = verbose
 
-    def __request(self, endpoint: str, params: dict = None):
+    @classmethod
+    def __request(cls, endpoint: str, params: dict = None):
         if params:
             params = parse.urlencode(params)
-            req = self.base_url + endpoint + '?' + params
+            req = cls.__BASE_API_URL + endpoint + '?' + params
         else:
-            req = self.base_url + endpoint
+            req = cls.__BASE_API_URL + endpoint
 
         try:
             with urlopen(req, timeout=10) as rsp:
                 response = json.loads(rsp.read())
         except Exception as err:
             return err
-        if self.verbose:
-            print('-' * 10 + '\n', response['status'], '\n' + '-' * 10)
         if response['status']['error_code'] == '0':
             return response['data']
         else:
