@@ -43,7 +43,7 @@ class PubMarket:
         response = self.__request('/cryptocurrency/listing', params=None)
         return response
 
-    def coin_markets(self, **kwargs):
+    def markets_by_coin_id(self, **kwargs):
         """
         Возвращает список бирж торгующие интересующей монетой id
         Market Pairs Latest
@@ -86,7 +86,7 @@ class PubMarket:
                                   params)
         return response
 
-    def convert(self, amount, id: int, convert_id: int):
+    def price_conversion(self, amount, id: int, convert_id: int):
         """
         Cryptocurrency Converter Calculator
         https://coinmarketcap.com/converter/

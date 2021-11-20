@@ -5,7 +5,7 @@ m = PubMarket()
 # Калькулятор и конвертер криптовалют
 # Cryptocurrency Converter Calculator
 # https://coinmarketcap.com/converter/
-# print(m.convert(amount=1, convert_id=2781, id=1))
+# print(m.price_conversion(amount=1, convert_id=2781, id=1))
 
 # Cryptocurrency Coin info
 # example

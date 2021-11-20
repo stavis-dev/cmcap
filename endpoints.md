@@ -32,29 +32,14 @@
 
     ```python
     # by slug
-    pubmarket.listing(slug=zclassic)
+    pubmarket.markets_by_coin_id(slug=zclassic)
     
     # by id
-    pubmarket.listing(id=1)
-    ```
-
-* *Список существующих бирж*
-  * Возвращает список активных (работающих) криптовалютных бирж.
-  * Требует передачи `suug` или `id` биржи. Например для Okex `slug=okex`, `id=294`.
-  * [URL c ID](https://api.coinmarketcap.com/data-api/v3/exchange/market-pairs/latest?id=294)
-  * [URL cо slug](https://api.coinmarketcap.com/data-api/v3/exchange/market-pairs/latest?slug=okex)
-  * **GET /exchange/market-pairs/latest** (Есть обязательный параметр)
-
-    ```python
-    # by slug
-    pubmarket.listing(slug='okex')
-    
-    # by id
-    pubmarket.listing(id=294)
+    pubmarket.markets_by_coin_id(id=1)
     ```
 
 * *Список валютных пар на бирже*
-  * Возвращает список валютных пар с интересующей биржи.
+  * Возвращает валютных пар торгующихся на интересующей бирже.
   * Требует передачи `suug` или `id` биржи. Например для Okex `slug=okex`, `id=294`.
   * [URL c ID](https://api.coinmarketcap.com/data-api/v3/exchange/market-pairs/latest?id=294)
   * [URL cо slug](https://api.coinmarketcap.com/data-api/v3/exchange/market-pairs/latest?slug=okex)
@@ -68,11 +53,43 @@
     pubmarket.listing(id=294)
     ```
 
-### [Начало](https:///)
-
-* *Wallet Endpoints*
-  * **GET /sapi/v1/system/status** (Fetch system status.)
+* *Информация о криптоактиве*
+  * Получает информацию об интересующем криптоактиве.
+  * Требует передачи `suug` или `id` биржи. Например для Okex `slug=bitcoin`, `id=1`.
+  * [URL c ID](https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail?id=1)
+  * [URL cо slug](https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail?slug=bitcoin)
+  * **GET /cryptocurrency/detail?id=1** (Есть обязательный параметр)
 
     ```python
-    client.get_system_status()
+    # by slug
+    m.coin_info(slug='bitcoin')
+    
+    # by id
+    m.coin_info(id=1)
+    ```
+
+## Конвертер валют
+
+Cryptocurrency Converter Calculator  
+
+[Web версия](https://coinmarketcap.com/converter/)
+
+ > * Конвертирует один криптоактив в другой.
+
+Требует обязательной передачи параметров:
+
+`amount`: (сумма)
+`id`: (id первого криптоактива)
+`convert_id`: (id криптоактива в который проводится конвертация)
+
+* *Конвертер криптоактива*
+  * Конвертиртер криптовалют.
+  * Требует передачи `amount` или `id` биржи. `convert_id`.
+  * [URL c ID](https://api.coinmarketcap.com/data-api/v3/tools/price-conversion?amount=1&id=1&convert_id=2781)
+  * **GET /tools/price-conversion** ()
+  * **GET /tools/price-conversion?amount=1&id=1&convert_id=2781** ()
+
+    ```python
+    # пример конвертации btc в usd
+    m.price_conversion(amount=1, id=1, convert_id=2781)
     ```
