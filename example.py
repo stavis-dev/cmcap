@@ -1,4 +1,5 @@
 from cmcap import PubMarket
+from cmcap import api
 
 
 # Калькулятор и конвертер криптовалют
@@ -20,3 +21,10 @@ from cmcap import PubMarket
 # example
 # https://coinmarketcap.com/exchanges/binance/
 # print(PubMarket().coin_markets(slug='monero'))
+
+
+# Через модуль api
+# Price conversion
+# ex = api.price_conversion(amount=2, convert_id=2781, id=1)
+# print(ex)
+
