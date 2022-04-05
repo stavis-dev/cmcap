@@ -247,7 +247,7 @@ def cryptocurrency_detail(id: int):
         return resp
 
 
-def price_conversion(amount, id, convert_id: int):
+def price_conversion(amount, id: int, convert_id: int):
         """
         Cryptocurrency Converter Calculator
         https://coinmarketcap.com/converter/

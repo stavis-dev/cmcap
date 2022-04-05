@@ -1,7 +1,13 @@
-from cmcap import PubMarket
-from cmcap import api
-from cmcap import parse
+# from cmcap import PubMarket
+# from cmcap import api
+# from cmcap import parse
 
+
+# For excample:
+from cmcap import convert
+
+print(convert(amount=10, coin='etc', convert_coin='usdt'))
+# 10 ETC = 454,80 USDT
 
 # Калькулятор и конвертер криптовалют
 # Cryptocurrency Converter Calculator
@@ -32,5 +38,11 @@ from cmcap import parse
 #     ex = api.price_conversion(amount=i, convert_id=2781, id=1)
 #     res = parse.price_conversion_parse(ex)
 #     print(res)
+
+
+# from cmcap.map import Symbol_to_Id
+
+# symbol = Symbol_to_Id()
+# print(symbol.get_coin_id_by_symbol(symbol="usd"))
 
 
