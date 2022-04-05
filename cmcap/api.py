@@ -3,6 +3,7 @@
 import json
 from urllib.request import urlopen
 from urllib import parse
+from decimal import Decimal
 
 
 class Api3:
@@ -23,7 +24,7 @@ class Api3:
             req = cls.__BASE_API_URL + endpoint
         try:
             with urlopen(req, timeout=10) as rsp:
-                return json.loads(rsp.read())
+                return json.loads(rsp.read(), parse_float=Decimal)
         except Exception as err:
             print(err)
             raise Exception("!!!!! Some error !!!")
@@ -196,24 +197,6 @@ def cryptocurrency_market_pairs(id: int = None,
     return response
 
 
-def price_conversion(amount, id: int, convert_id: int):
-        """
-        Cryptocurrency Converter Calculator
-        https://coinmarketcap.com/converter/
-        https://api.coinmarketcap.com/data-api/v3/tools/price-conversion
-        Requared: "slug" or "id"
-        amount=1,
-        convert_id=2781,
-        id=1
-        """
-        params: dict = {"amount": amount,
-                        "id": id,
-                        "convert_id": convert_id}
-        resp = Api3()._request('/tools/price-conversion',
-                              params)
-        return resp
-
-
 def exchange_market_pairs(id: int = None,
                             slug: str = None, **kwargs):
     """
@@ -260,5 +243,24 @@ def cryptocurrency_detail(id: int):
         """
         params: dict = {"id": id}
         resp = Api3()._request('/cryptocurrency/detail',
+                              params)
+        return resp
+
+
+def price_conversion(amount, id, convert_id: int):
+        """
+        Cryptocurrency Converter Calculator
+        https://coinmarketcap.com/converter/
+        https://api.coinmarketcap.com/data-api/v3/tools/price-conversion
+        Requared: "slug" or "id"
+        amount=1,
+        convert_id=2781,
+        id=1
+        https://api.coinmarketcap.com/data-api/v3/tools/price-conversion?id=1&amount=1&convert_id=2781
+        """
+        params: dict = {"amount": amount,
+                        "id": id,
+                        "convert_id": convert_id}
+        resp = Api3()._request('/tools/price-conversion',
                               params)
         return resp
