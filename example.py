@@ -1,12 +1,10 @@
 # from cmcap import PubMarket
-# from cmcap import api
-# from cmcap import parse
+
 
 
 # For excample:
-from cmcap import convert
-
-print(convert(amount=10, coin='etc', convert_coin='usdt'))
+# from cmcap import convert
+# print(convert(amount='10', coin='ussd', convert_coin='rdub'))
 # 10 ETC = 454,80 USDT
 
 # Калькулятор и конвертер криптовалют
@@ -31,8 +29,14 @@ print(convert(amount=10, coin='etc', convert_coin='usdt'))
 
 
 # Через модуль api
+from cmcap import api
+from cmcap import parse
+
 # Price conversion
-# ex = api.price_conversion(amount=2, convert_id=2781, id=1)
+ex = api.price_conversion(amount=1, convert_id=1111111111, id=1)
+res = parse.price_conversion_parse(ex)
+print(ex)
+print(res)
 # am = [0.000001, 0.0001, 0.1, 4]
 # for i in am:
 #     ex = api.price_conversion(amount=i, convert_id=2781, id=1)
@@ -40,9 +44,11 @@ print(convert(amount=10, coin='etc', convert_coin='usdt'))
 #     print(res)
 
 
+
+# symbol to id
 # from cmcap.map import Symbol_to_Id
 
 # symbol = Symbol_to_Id()
-# print(symbol.get_coin_id_by_symbol(symbol="usd"))
+# print(symbol.get_coin_id_by_symbol(symbol="u2sd"))
 
 

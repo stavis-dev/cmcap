@@ -8,11 +8,11 @@ from decimal import Decimal
 @dataclass
 class Conversion:
     """ Parser price_conversion """
-    symbol: str
-    price: int or Decimal
-    name: str
-    amount: int or Decimal
-    convert_symbol: str
+    symbol: str = "Coin symbol"
+    price: int or Decimal = 0
+    name: str = "Coin name"
+    amount: int or Decimal = 0
+    convert_symbol: str = "Convert symbol"
     price_rounded: str = field(init=False, repr=True)
 
     def __repr__(self) -> str:
@@ -28,17 +28,19 @@ class Conversion:
 
 
 def price_conversion_parse(elem: dict):
-    data = elem.get('data')
-    quote = data.get('quote')
-    symbol = data.get('symbol')
-    amount = data.get('amount')
-    name = data.get('name')
-    if len(quote) == 0:
-        convert_symbol = "Error"
-        price = "0"
-    else:
-        convert_symbol = quote[0].get('symbol')
-        price = quote[0].get('price')
-
-    return Conversion(symbol=symbol, amount=amount, name=name,
-                        convert_symbol=convert_symbol, price=price)
+    try:
+        data = elem.get('data')
+        quote = data.get('quote')
+        symbol = data.get('symbol')
+        amount = data.get('amount')
+        name = data.get('name')
+        if len(quote) == 0:
+            convert_symbol = "Error convert symbol"
+            price = 0
+        else:
+            convert_symbol = quote[0].get('symbol')
+            price = quote[0].get('price')
+        return Conversion(symbol=symbol, amount=amount, name=name,
+                            convert_symbol=convert_symbol, price=price)
+    except Exception:
+        return Conversion(symbol="Response error")
