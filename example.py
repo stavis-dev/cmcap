@@ -7,6 +7,14 @@
 # print(convert(amount='10', coin='ussd', convert_coin='rdub'))
 # 10 ETC = 454,80 USDT
 
+# Get maps from coinmarcetcup
+# from cmcap import get_maps
+# excange, crypto, fiat = get_maps()
+
+# print(excange[0])
+# print(crypto[0])
+# print(fiat[0])
+~
 # Калькулятор и конвертер криптовалют
 # Cryptocurrency Converter Calculator
 # https://coinmarketcap.com/converter/
@@ -29,14 +37,14 @@
 
 
 # Через модуль api
-from cmcap import api
-from cmcap import parse
+# from cmcap import api
+# from cmcap import parse
 
 # Price conversion
-ex = api.price_conversion(amount=1, convert_id=1111111111, id=1)
-res = parse.price_conversion_parse(ex)
-print(ex)
-print(res)
+# ex = api.price_conversion(amount=1, convert_id=1111111111, id=1)
+# res = parse.price_conversion_parse(ex)
+# print(ex)
+# print(res)
 # am = [0.000001, 0.0001, 0.1, 4]
 # for i in am:
 #     ex = api.price_conversion(amount=i, convert_id=2781, id=1)
