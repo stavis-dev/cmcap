@@ -3,6 +3,7 @@
 import json
 from urllib.request import urlopen
 from urllib import parse
+from decimal import Decimal
 
 
 class PubMarket:
@@ -24,7 +25,7 @@ class PubMarket:
 
         try:
             with urlopen(req, timeout=10) as rsp:
-                response = json.loads(rsp.read())
+                response = json.loads(rsp.read(), parse_float=Decimal)
         except Exception as err:
             return err
         if response['status']['error_code'] == '0':

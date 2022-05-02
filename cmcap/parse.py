@@ -27,7 +27,7 @@ class Conversion:
             self.price_rounded = "{0:,}".format(int(self.price)).replace(',', ' ')
 
 
-def price_conversion_parse(elem: dict):
+def price_conversion_parse(elem: dict) -> Conversion:
     try:
         data = elem.get('data')
         quote = data.get('quote')

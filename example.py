@@ -14,7 +14,7 @@
 # print(excange[0])
 # print(crypto[0])
 # print(fiat[0])
-~
+
 # Калькулятор и конвертер криптовалют
 # Cryptocurrency Converter Calculator
 # https://coinmarketcap.com/converter/
