@@ -1,9 +1,9 @@
 """ Parser data from json coinmarketcap """
 
 from dataclasses import dataclass, field
-from distutils.log import error
 from decimal import Decimal
 # from cmcap import api
+
 
 @dataclass
 class Conversion:
@@ -41,6 +41,6 @@ def price_conversion_parse(elem: dict) -> Conversion:
             convert_symbol = quote[0].get('symbol')
             price = quote[0].get('price')
         return Conversion(symbol=symbol, amount=amount, name=name,
-                            convert_symbol=convert_symbol, price=price)
+                          convert_symbol=convert_symbol, price=price)
     except Exception:
         return Conversion(symbol="Response error")

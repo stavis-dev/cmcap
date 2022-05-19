@@ -80,7 +80,7 @@ class Api3:
 
         params.update(kwargs)
         response = cls._request_data('/cryptocurrency/market-pairs/latest',
-                                  params)
+                                     params)
         return response
 
     @classmethod
