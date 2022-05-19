@@ -152,17 +152,14 @@ class Api3:
         return resp
 
 
-def map_all(**kwargs):
+def map_all():
     """
     возвращает json с 2 списками (list):
         exchangeMap: список с ID криптобирж
         cryptoCurrencyMap: список с ID криптовалют и их slug
     https://api.coinmarketcap.com/data-api/v3/map/all
     """
-    params: dict = {}
-    params.update(kwargs)
-    response = Api3()._request('/map/all', params=None)
-    return response
+    return Api3()._request('/map/all')
 
 
 def cryptocurrency_market_pairs(id: int = None,
