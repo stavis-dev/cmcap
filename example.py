@@ -4,7 +4,10 @@
 
 # For excample:
 # from cmcap import convert
-# print(convert(amount='10', coin='ussd', convert_coin='rdub'))
+# res = convert(amount='1', coin='btc', convert_coin='usdt')
+# print(res)
+# print(res.price)
+# print(res.price_rounded)
 # 10 ETC = 454,80 USDT
 
 # Get maps from coinmarcetcup

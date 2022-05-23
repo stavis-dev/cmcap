@@ -3,7 +3,7 @@ from unittest.mock import patch
 from cmcap import api
 
 
-class TestApi3(unittest.TestCase):
+class TestApi3_www(unittest.TestCase):
 
     # @patch('cmcap.urllib')
     def test_map_all_with_real_connect(self):
@@ -17,4 +17,5 @@ class TestApi3(unittest.TestCase):
         self.assertEqual(type(result["data"]["cryptoCurrencyMap"]), list)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()
