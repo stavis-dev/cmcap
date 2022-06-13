@@ -7,71 +7,6 @@ from decimal import Decimal
 
 __BASE_API_URL = 'https://api.coinmarketcap.com/data-api/v3'
 
-class Api3:
-    """Public api for web v3 """
-    __BASE_API_URL = 'https://api.coinmarketcap.com/data-api/v3'
-
-    def __init__(self,
-                 base_url=__BASE_API_URL, verbose=False):
-        self.base_url = base_url
-        self.verbose = verbose
-
-
-    @classmethod
-    def _request(cls, endpoint: str, params: dict = None):
-        if params:
-            params = parse.urlencode(params)
-            request = cls.__BASE_API_URL + endpoint + '?' + params
-        else:
-            request = cls.__BASE_API_URL + endpoint
-        try:
-            with urlopen(request, timeout=10) as response:
-                return json.loads(response.read(), parse_float=Decimal)
-        except Exception as err:
-            print(err)
-            raise Exception("Request Error")
-
-    @classmethod
-    def _request_data(cls, endpoint: str, params: dict = None):
-        """ requests with status errros filter """
-        response = cls._request(endpoint=endpoint, params=params)
-
-        if response['status']['error_code'] == '0':
-            return response['data']
-        else:
-            raise Exception(response['status'])
-
-    @classmethod
-    def map_all(cls, **kwargs):
-        """
-        возвращает json с 2 списками (list):
-            exchangeMap: список с ID криптобирж
-            cryptoCurrencyMap: список с ID криптовалют и их slug
-        https://api.coinmarketcap.com/data-api/v3/map/all
-        """
-        params: dict = {}
-        params.update(kwargs)
-        response = cls._request('/map/all', params=None)
-        return response
-
-    @classmethod
-    def price_conversion(cls, amount, id: int, convert_id: int):
-        """
-        Cryptocurrency Converter Calculator
-        https://coinmarketcap.com/converter/
-        https://api.coinmarketcap.com/data-api/v3/tools/price-conversion
-        Requared: "slug" or "id"
-        amount=1,
-        convert_id=2781,
-        id=1
-        """
-        params: dict = {"amount": amount,
-                        "id": id,
-                        "convert_id": convert_id}
-        resp = cls._request('/tools/price-conversion',
-                              params)
-        return resp
-
 
 def map_all():
     """
@@ -173,7 +108,6 @@ def listing():
     https://coinmarketcap.com/
     """
     return _request('/cryptocurrency/listing')
-
 
 
 def price_conversion(amount, id: int, convert_id: int):
