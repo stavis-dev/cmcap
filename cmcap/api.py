@@ -18,7 +18,7 @@ def map_all():
     return _request('/map/all')
 
 
-def cryptocurrency_market_pairs(id: int = None,
+def __cryptocurrency_market_pairs(id: int = None,
                         slug: str = None, **kwargs):
     """
     Возвращает список бирж торгующие интересующей монетой id
@@ -50,7 +50,7 @@ def cryptocurrency_market_pairs(id: int = None,
     return response
 
 
-def exchange_market_pairs(id: int = None,
+def __exchange_market_pairs(id: int = None,
                             slug: str = None, **kwargs):
     """
     Возвращает список валютных пар на интересующей бирже id
@@ -86,7 +86,7 @@ def exchange_market_pairs(id: int = None,
     return response
 
 
-def cryptocurrency_detail(id: int):
+def __cryptocurrency_detail(id: int):
         """
         Cryptocurrencies Coins Info
         https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyInfo
@@ -100,7 +100,7 @@ def cryptocurrency_detail(id: int):
         return resp
 
 
-def listing():
+def __listing():
     """
     Index page of coinmarketcap
     https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing
