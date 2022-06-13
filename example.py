@@ -4,7 +4,7 @@
 
 # For excample:
 # from cmcap import convert
-# print(convert(amount='10', coin='ussd', convert_coin='rdub'))
+# print(convert(amount='1', coin='btc', convert_coin='usdt'))
 # 10 ETC = 454,80 USDT
 
 # Get maps from coinmarcetcup
@@ -18,7 +18,8 @@
 # Калькулятор и конвертер криптовалют
 # Cryptocurrency Converter Calculator
 # https://coinmarketcap.com/converter/
-# print(PubMarket().price_conversion(amount=1, convert_id=2781, id=1))
+# from cmcap import api
+# print(api.price_conversion(amount=1, convert_id=2781, id=1))
 
 # Cryptocurrency Coin info
 # example
