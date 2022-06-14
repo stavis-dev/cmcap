@@ -1,19 +1,20 @@
 import unittest
 from unittest.mock import patch
 from cmcap import api
+from tests.test_api import TestPriceConversion
 # from tests.test_parse_round import TestParse
-from tests.test_parse import TestParseConverter_mock
+# from tests.test_parse import TestParseConverter_mock
 # from tests.test_save_test_data import TestMakeLocalJsonData
 
 
-TestParseConverter_mock()
-
+# TestParseConverter_mock()
 # TestMakeLocalJsonData()
+
+TestPriceConversion()
 
 
 @unittest.skip("skipping mock connect test")
 class TestApiwithMock(unittest.TestCase):
-
 
     @patch.object(api, '_request')
     def test_test_map_all_mock(self, request_mock):
