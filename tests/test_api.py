@@ -99,4 +99,5 @@ class TestMapAll(unittest.TestCase):
         self.assertEqual(type(result["data"]["cryptoCurrencyMap"]), list)
 
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main()
