@@ -7,7 +7,7 @@ import json
 # @unittest.skip("skipping macking local data")
 class TestMakeLocalJsonData(unittest.TestCase):
 
-    @unittest.skip("skipping price_conversion")
+    # @unittest.skip("skipping price_conversion")
     def test_save_price_conversion(self):
         amount = 1
         id: int = 1  # BTC
@@ -30,7 +30,7 @@ class TestMakeLocalJsonData(unittest.TestCase):
         self.assertEqual(read, result)
 
 
-    @unittest.skip("skipping map_all.json")
+    # @unittest.skip("skipping map_all.json")
     def test_save_map_all(self):
         result = api._get_request('/map/all', None)
         with open('test_data/map_all.json', 'wb') as file:
