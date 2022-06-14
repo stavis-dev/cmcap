@@ -17,7 +17,5 @@ class TestParseConverter_mock(unittest.TestCase):
         print(f"\n {'-' * 20} \n {result}")
 
 
-
 if __name__ == "__main__":
     unittest.main()
-

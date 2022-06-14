@@ -3,23 +3,6 @@ from unittest.mock import patch, MagicMock
 from cmcap import api
 
 
-@unittest.skip("skipping mock connect test")
-class TestApiwithMock(unittest.TestCase):
-
-
-    @patch.object(api, '_request')
-    def test_test_map_all_mock(self, request_mock):
-        request_mock.return_value = 'good'
-
-        amount = 1
-        id: int = 1  # BTC
-        convert_id: int = 2781  # USD
-
-        result = api.price_conversion(amount, id, convert_id)
-
-        print(f"\n {'-' * 20} \n result = {result}")
-
-
 # @unittest.skip("skipping real connect test")
 class TestPriceConversion(unittest.TestCase):
 
@@ -83,20 +66,6 @@ class TestPriceConversion(unittest.TestCase):
         # print(f"\n {'-' * 20} \n result = {result}")
 
         self.assertEqual(expected_cerror_code, result["status"]["error_code"])
-
-
-@unittest.skip("skipping test map_all")
-class TestMapAll(unittest.TestCase):
-    
-    def test_map_all(self):
-        result = api.map_all()
-
-        self.assertEqual(type(result), dict)
-        self.assertEqual("0", result["status"]["error_code"])
-        # check tables of excanges
-        self.assertEqual(type(result["data"]["exchangeMap"]), list)
-        # check tables of crypto Currency
-        self.assertEqual(type(result["data"]["cryptoCurrencyMap"]), list)
 
 
 if __name__ == "__main__":

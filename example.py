@@ -3,8 +3,9 @@
 
 
 # For excample:
-# from cmcap import convert
-# print(convert(amount='1', coin='btc', convert_coin='usdt'))
+from cmcap import convert
+
+print(convert(amount='1', coin='btc', convert_coin='usdt'))
 # 10 ETC = 454,80 USDT
 
 # Get maps from coinmarcetcup
