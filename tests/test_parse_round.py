@@ -5,7 +5,7 @@ from cmcap import parse
 class TestParseRound(unittest.TestCase):
 
     def test_price_rounded_gt1(self):
-        test_func = parse.price_round
+        test_func = parse._price_round
 
         self.assertEqual(test_func(1.12345678), '1,12')
         self.assertEqual(test_func(12.12345678), '12,12')
@@ -16,7 +16,7 @@ class TestParseRound(unittest.TestCase):
         self.assertEqual(test_func(1234567.12345678), '1 234 567')
 
     def test_price_rounded_lt1(self):
-        test_func = parse.price_round
+        test_func = parse._price_round
 
         self.assertEqual(test_func(0.1), '0,1')
         self.assertEqual(test_func(0.01), '0,01')
@@ -28,7 +28,7 @@ class TestParseRound(unittest.TestCase):
         self.assertEqual(test_func(0.000_000_01), '0,00000001')
 
     def test_price_rounded_ints(self):
-        test_func = parse.price_round
+        test_func = parse._price_round
 
         self.assertEqual(test_func(1), '1')
         self.assertEqual(test_func(12), '12')

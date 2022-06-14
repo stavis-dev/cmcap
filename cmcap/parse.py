@@ -32,7 +32,7 @@ def price_conversion_parse(elem: dict) -> Conversion:
         else:
             convert_symbol = quote[0].get('symbol')
             price = quote[0].get('price')
-            price_rounded = price_round(price)
+            price_rounded = _price_round(price)
         return Conversion(symbol=symbol, amount=amount, name=name,
                           convert_symbol=convert_symbol, price=price,
                           price_rounded=price_rounded)
@@ -40,7 +40,7 @@ def price_conversion_parse(elem: dict) -> Conversion:
         return Conversion(symbol="Response error")
 
 
-def price_round(price) -> str:
+def _price_round(price) -> str:
     if price >= 1 and price < 100_000:
         price_rounded = f"{round(price, 2):,}".replace(',', ' ').replace('.', ',')
     elif price < 1 and price >= 0.000_001:
